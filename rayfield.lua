@@ -75,14 +75,14 @@ local RayfieldFolder = "Rayfield"
 local ConfigurationFolder = RayfieldFolder.."/Configurations"
 local ConfigurationExtension = ".rfld"
 local settingsTable = {
-	General = {
+	Основное = {
 		-- if needs be in order just make getSetting(name)
 		rayfieldOpen = {Type = 'bind', Value = 'K', Name = 'Привязка интерфейса'},
 		-- buildwarnings
 		-- rayfieldprompts
 
 	},
-	System = {
+	Система = {
 		usageAnalytics = {Type = 'toggle', Value = false, Name = 'Анонимная статистика'},
 	}
 }
@@ -114,7 +114,7 @@ local function loadSettings()
 			-- for debug in studio
 			if useStudio then
 				file = [[
-		{"General":{"rayfieldOpen":{"Value":"K","Type":"bind","Name":"Привязка интерфейса","Element":{"HoldToInteract":false,"Ext":true,"Name":"Привязка интерфейса","Set":null,"CallOnChange":true,"Callback":null,"CurrentKeybind":"K"}}},"System":{"usageAnalytics":{"Value":false,"Type":"toggle","Name":"Anonymised Analytics","Element":{"Ext":true,"Name":"Anonymised Analytics","Set":null,"CurrentValue":false,"Callback":null}}}}
+		{"Основное":{"rayfieldOpen":{"Value":"K","Type":"bind","Name":"Привязка интерфейса","Element":{"HoldToInteract":false,"Ext":true,"Name":"Привязка интерфейса","Set":null,"CallOnChange":true,"Callback":null,"CurrentKeybind":"K"}}},"Система":{"usageAnalytics":{"Value":false,"Type":"toggle","Name":"Anonymised Analytics","Element":{"Ext":true,"Name":"Anonymised Analytics","Set":null,"CurrentValue":false,"Callback":null}}}}
 	]]
 			end
 
@@ -168,7 +168,7 @@ if debugX then
 	warn('Settings Loaded')
 end
 
---if not cachedSettings or not cachedSettings.System or not cachedSettings.System.usageAnalytics then
+--if not cachedSettings or not cachedSettings.Система or not cachedSettings.Система.usageAnalytics then
 --	local fileFunctionsAvailable = isfile and writefile and readfile
 
 --	if not fileFunctionsAvailable and not useStudio then
@@ -183,7 +183,7 @@ end
 --			'Continue',
 --			'Cancel',
 --			function(result)
---				settingsTable.System.usageAnalytics.Value = result
+--				settingsTable.Система.usageAnalytics.Value = result
 --				analytics = result
 --			end
 --		)
@@ -216,7 +216,7 @@ if not requestsDisabled then
 			if debugX then warn('Finished Report') end
 		end
 	end
-	if cachedSettings and (#cachedSettings == 0 or (cachedSettings.System and cachedSettings.System.usageAnalytics and cachedSettings.System.usageAnalytics.Value)) then
+	if cachedSettings and (#cachedSettings == 0 or (cachedSettings.Система and cachedSettings.Система.usageAnalytics and cachedSettings.Система.usageAnalytics.Value)) then
 		sendReport()
 	elseif not cachedSettings then
 		sendReport()
@@ -1153,7 +1153,7 @@ local function Hide(notify: boolean?)
 		if useMobilePrompt then 
 			RayfieldLibrary:Notify({Title = "Интерфейс спрятан", Content = "Интерфейс был скрыт. Чтобы снова открыть его, нажми 'Show Rayfield'.", Duration = 7, Image = 4400697855})
 		else
-			RayfieldLibrary:Notify({Title = "Интерфейс спрятан", Content = `Интерфейс был скрыт. Чтобы снова открыть его, нажми {settingsTable.General.rayfieldOpen.Value or 'K'}.`, Duration = 7, Image = 4400697855})
+			RayfieldLibrary:Notify({Title = "Интерфейс спрятан", Content = `Интерфейс был скрыт. Чтобы снова открыть его, нажми {settingsTable.Основное.rayfieldOpen.Value or 'K'}.`, Duration = 7, Image = 4400697855})
 		end
 	end
 
@@ -1683,14 +1683,14 @@ function RayfieldLibrary:CreateWindow(Settings)
 		end
 	end
 
-	if (Settings.KeySystem) then
+	if (Settings.KeyСистема) then
 		if not Settings.KeySettings then
 			Passthrough = true
 			return
 		end
 
-		if isfolder and not isfolder(RayfieldFolder.."/Key System") then
-			makefolder(RayfieldFolder.."/Key System")
+		if isfolder and not isfolder(RayfieldFolder.."/Key Система") then
+			makefolder(RayfieldFolder.."/Key Система")
 		end
 
 		if typeof(Settings.KeySettings.Key) == "string" then Settings.KeySettings.Key = {Settings.KeySettings.Key} end
@@ -1712,9 +1712,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Settings.KeySettings.FileName = "No file name specified"
 		end
 
-		if isfile and isfile(RayfieldFolder.."/Key System".."/"..Settings.KeySettings.FileName..ConfigurationExtension) then
+		if isfile and isfile(RayfieldFolder.."/Key Система".."/"..Settings.KeySettings.FileName..ConfigurationExtension) then
 			for _, MKey in ipairs(Settings.KeySettings.Key) do
-				if string.find(readfile(RayfieldFolder.."/Key System".."/"..Settings.KeySettings.FileName..ConfigurationExtension), MKey) then
+				if string.find(readfile(RayfieldFolder.."/Key Система".."/"..Settings.KeySettings.FileName..ConfigurationExtension), MKey) then
 					Passthrough = true
 				end
 			end
@@ -1756,7 +1756,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			local KeyMain = KeyUI.Main
 			KeyMain.Title.Text = Settings.KeySettings.Title or Settings.Name
-			KeyMain.Subtitle.Text = Settings.KeySettings.Subtitle or "Key System"
+			KeyMain.Subtitle.Text = Settings.KeySettings.Subtitle or "Key Система"
 			KeyMain.NoteMessage.Text = Settings.KeySettings.Note or "No instructions"
 
 			KeyMain.Size = UDim2.new(0, 467, 0, 175)
@@ -1825,9 +1825,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 					KeyMain.Visible = false
 					if Settings.KeySettings.SaveKey then
 						if writefile then
-							writefile(RayfieldFolder.."/Key System".."/"..Settings.KeySettings.FileName..ConfigurationExtension, FoundKey)
+							writefile(RayfieldFolder.."/Key Система".."/"..Settings.KeySettings.FileName..ConfigurationExtension, FoundKey)
 						end
-						RayfieldLibrary:Notify({Title = "Key System", Content = "The key for this script has been saved successfully.", Image = 3605522284})
+						RayfieldLibrary:Notify({Title = "Key Система", Content = "The key for this script has been saved successfully.", Image = 3605522284})
 					end
 				else
 					if AttemptsRemaining == 0 then
@@ -1880,7 +1880,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Passthrough = true
 		end
 	end
-	if Settings.KeySystem then
+	if Settings.KeyСистема then
 		repeat task.wait() until Passthrough
 	end
 
@@ -3606,7 +3606,7 @@ Topbar.Hide.MouseButton1Click:Connect(function()
 end)
 
 hideHotkeyConnection = UserInputService.InputBegan:Connect(function(input, processed)
-	if (input.KeyCode == Enum.KeyCode[settingsTable.General.rayfieldOpen.Value or 'K'] and not processed) then
+	if (input.KeyCode == Enum.KeyCode[settingsTable.Основное.rayfieldOpen.Value or 'K'] and not processed) then
 		if Debounce then return end
 		if Hidden then
 			Hidden = false
@@ -3668,7 +3668,7 @@ function RayfieldLibrary:LoadConfiguration()
 				end
 			else
 				notified = true
-				RayfieldLibrary:Notify({Title = "Rayfield Configurations", Content = "We couldn't enable Configuration Saving as you are not using software with filesystem support.", Image = 4384402990})
+				RayfieldLibrary:Notify({Title = "Rayfield Configurations", Content = "We couldn't enable Configuration Saving as you are not using software with fileСистема support.", Image = 4384402990})
 			end
 		end)
 
@@ -3706,7 +3706,7 @@ if useStudio then
 			Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
 			RememberJoins = true -- Set this to false to make them join the discord every time they load it up
 		},
-		KeySystem = false, -- Set this to true to use our key system
+		KeyСистема = false, -- Set this to true to use our key Система
 		KeySettings = {
 			Title = "Безымянный",
 			Subtitle = "KMS",
@@ -3714,7 +3714,7 @@ if useStudio then
 			FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
 			SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
 			GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-			Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+			Key = {"Hello"} -- List of keys that will be accepted by the Система, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
 		}
 	})
 
