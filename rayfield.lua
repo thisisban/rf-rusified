@@ -1151,9 +1151,9 @@ local function Hide(notify: boolean?)
 	Debounce = true
 	if notify then
 		if useMobilePrompt then 
-			RayfieldLibrary:Notify({Title = "Interface Hidden", Content = "The interface has been hidden, you can unhide the interface by tapping 'Show Rayfield'.", Duration = 7, Image = 4400697855})
+			RayfieldLibrary:Notify({Title = "Интерфейс спрятан", Content = "Интерфейс был скрыт. Чтобы снова открыть его, нажми 'Show Rayfield'.", Duration = 7, Image = 4400697855})
 		else
-			RayfieldLibrary:Notify({Title = "Interface Hidden", Content = `The interface has been hidden, you can unhide the interface by tapping {settingsTable.General.rayfieldOpen.Value or 'K'}.`, Duration = 7, Image = 4400697855})
+			RayfieldLibrary:Notify({Title = "Интерфейс спрятан", Content = `Интерфейс был скрыт. Чтобы снова открыть его, нажми {settingsTable.General.rayfieldOpen.Value or 'K'}.`, Duration = 7, Image = 4400697855})
 		end
 	end
 
@@ -3708,9 +3708,9 @@ if useStudio then
 		},
 		KeySystem = false, -- Set this to true to use our key system
 		KeySettings = {
-			Title = "Untitled",
-			Subtitle = "Key System",
-			Note = "No method of obtaining the key is provided",
+			Title = "Безымянный",
+			Subtitle = "KMS",
+			Note = "Никакого способа получения ключа не предусмотрено",
 			FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
 			SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
 			GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
